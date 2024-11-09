@@ -1,31 +1,70 @@
 const db = require('../config/db');
 
-//retrieve all users
-exports.getAllUsers = () => {
-    return db.any('SELECT * FROM users  ');
-};
+const docRef = db.collection("users");
 
-//when creating a new user
-exports.createNewUser = (email, username, password) => {
+exports.createUser = async (user) => {
     try{
-        return db.tx(async (t) => {
-            await t.none('INSERT INTO USERS (user_email, username) values ($1, $2)', [email, username]);
-    
-            await t.none('INSERT INTO user_login(user_email, password) values ($1, $2)', [email, password]);
-        })
+        const userId = user.email;
+        const docSnapshot = await docRef.doc(userId).get();
+
+        if(docSnapshot.exists){
+            const err = new Error('User already exists');
+            err.statusCode = 400;
+            throw err;
+        }
+        
+        await  db.collection("users").doc(userId).set(user);
+
+        const savedUser = (await docRef.doc(userId).get()).data();
+        return savedUser;
+
     }catch(err){
         console.log(err);
         throw err;
     }
 }
 
-//retrieving a specificUser based on their userEmail
-exports.getUserByEmail = async (email) => {
+exports.findUserByEmail = async (email) => {
     try{
-        const user = await db.one('SELECT * from users where user_email = $1', [email]);
-        return user;
+        const userSnapshot = await docRef.doc(email).get();
+        if(!userSnapshot.exists){
+            const err = new Error('User does not exist');
+            err.statusCode = 404;
+            throw err;
+        }
+        return userSnapshot;
+    }catch(err){
+        throw err;
+    }
+}
+
+exports.getAllUsers = async () => {
+    try{
+        const usersSnapshot = await docRef.get();
+        let responseArr = []
+        usersSnapshot.forEach(doc => {
+            responseArr.push(doc.data());
+        })
+        
+        return responseArr;
     }catch(err){
         console.log(err);
+        throw err;
+    }
+}
+
+exports.updateDisplayStats = async(email, displayName, status, pfp) => {
+    try{
+        const userRef = docRef.doc(email);
+
+        await userRef.update({
+            "displayName": displayName,
+            "status": status,
+            "pfp": pfp
+        });
+
+        return {code: 200, message: "Information successfully updated"}
+    }catch(err){
         throw err;
     }
 }

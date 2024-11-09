@@ -1,12 +1,15 @@
 const express = require('express');
-const userRoutes = require('./routes/userRoutes');
-
 const app = express();
+const userRoutes = require('./routes/userRoutes');
+const cors = require('cors');
 
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({extended:true}))
 
-app.listen(3001, () =>{
-    console.log('server is listening on port 3001');
-});
+const PORT = process.env.PORT || 3001
+app.listen(PORT, () => {
+    console.log(`Server is running on Port ${PORT}`);
+})
 
-app.use(express.json()); //middleware to parse JSON bodies
-app.use('/users', userRoutes); //takes care of all user related functions
+app.use('/users', userRoutes);
