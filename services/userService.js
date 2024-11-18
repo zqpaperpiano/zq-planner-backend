@@ -68,3 +68,19 @@ exports.updateDisplayStats = async(email, displayName, status, pfp) => {
         throw err;
     }
 }
+
+exports.updateUserPreferences = async(email, displayName, hasSchedule, schedule, hasSalary, salary) => {
+    try{
+        const userRef = docRef.doc(email);
+        await userRef.update({
+            displayName,
+            hasSchedule,
+            schedule,
+            hasSalary,
+            salary
+        });
+        return {code: 200, message: "Preferences successfully updated"}
+    }catch(err){
+        throw err;
+    }
+}

@@ -83,3 +83,23 @@ exports.getUserLogin = async(req, res) => {
     }
 }
 
+exports.updateUserPreferences = async(req, res) => {
+    const {email, displayName, hasSchedule, schedule, hasSalary, salary} = req.body;
+    try{
+        let verifySched = null;
+        let verifySalary = null;
+        if(hasSchedule){
+            verifySched = schedule;
+        }
+
+        if(hasSalary){
+            verifySalary = salary;
+        }
+
+        const user = await userService.updateUserPreferences(email, displayName, hasSchedule, verifySched, hasSalary, verifySalary);
+        res.status(200).send(user);
+    }catch(err){
+        console.log(err);
+    }
+}
+

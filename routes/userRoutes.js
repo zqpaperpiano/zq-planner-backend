@@ -7,5 +7,6 @@ router.get('/get-user', userController.getUserByEmail);
 router.get('/all-users', userController.getAllUsers);
 router.post('/updateDisplayInfo', userController.updateDisplayInformation);
 router.post('/log-in', userController.getUserLogin);
+router.post('/newUserPreferences', userController.updateUserPreferences);
 
 module.exports = router;
