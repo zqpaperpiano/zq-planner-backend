@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
-const userRoutes = require('./routes/userRoutes');
-const dungeonRoutes = require('./routes/dungeonRoutes');
+const userRoutes = require('../routes/userRoutes');
+const dungeonRoutes = require('../routes/dungeonRoutes');
 const cors = require('cors');
 
 app.use(cors());
