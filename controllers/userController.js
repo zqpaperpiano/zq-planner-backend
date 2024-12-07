@@ -2,25 +2,38 @@ const bcrypt = require('bcrypt');
 const userService = require('../services/userService');
 
 exports.createNewUser = async (req, res) => {
-    const { email, name, password } = req.body;
+    const { email, name } = req.body;
     try{
-        const hashedPassword = await bcrypt.hash(password, 10);
+        const uid = req.user.uid;
         const newUser = await userService.createUser({
+            "uid": uid,
             "email": email,
-            "name": name,
-            "password": hashedPassword,
-            "displayName": name,
-            "status": "Budding adventurer!",
-            "pfp": ""
+            "name": name
         });
         res.status(201).json(newUser);
+        
     }catch(err){
+        console.log(err);
         if(err.statusCode === 400){
             res.status(400).send("User already exists!");
         }else{
             res.status(500).send(err);
         }
         
+    }
+}
+
+exports.getUserByUid = async(req, res) => {
+    const { uid } = req.body;
+    try{
+        const user = await userService.getUserByUID(uid);
+        res.status(200).json(user.data());
+    }catch(err){
+        if(err.statusCode===404){
+            res.stats(404).send('User does not exist');
+        }else{
+            res.status(500).send('An error has occured. Please try again.');
+        }
     }
 }
 

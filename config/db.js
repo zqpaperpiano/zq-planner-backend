@@ -16,9 +16,13 @@ const credentials = {
 };
 
 admin.initializeApp({
-    credential: admin.credential.cert(credentials)
+    credential: admin.credential.cert(credentials),
+    projectId: process.env.FIREBASE_PROJECT_ID,
 });
 
 const db = admin.firestore();
+const auth = admin.auth();
 
-module.exports = db;
+module.exports = admin;
+module.exports = auth;
+module.exports =  db;

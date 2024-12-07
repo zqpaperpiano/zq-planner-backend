@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from 'uuid';
 const dungeonService = require('../services/dungeonService');
 
 exports.createNewDungeon = async(req, res) => {

@@ -1,10 +1,9 @@
 const db = require('../config/db');
-
 const docRef = db.collection("users");
 
 exports.createUser = async (user) => {
     try{
-        const userId = user.email;
+        const userId = user.uid;
         const docSnapshot = await docRef.doc(userId).get();
 
         if(docSnapshot.exists){
@@ -20,6 +19,21 @@ exports.createUser = async (user) => {
 
     }catch(err){
         console.log(err);
+        throw err;
+    }
+}
+
+exports.getUserByUID = async(uid) => {
+    try{
+        const userSnapshot = await docRef.doc(uid).get();
+        if(!userSnapshot.exists){
+            const err = new Error('User does not exist');
+            err.statusCode = 404;
+            throw  err;
+        }
+
+        return userSnapshot;
+    }catch(err){
         throw err;
     }
 }
