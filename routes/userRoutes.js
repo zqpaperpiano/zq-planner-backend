@@ -10,5 +10,6 @@ router.post('/updateDisplayInfo', userController.updateDisplayInformation);
 router.post('/log-in', userController.getUserLogin);
 router.post('/newUserPreferences', userController.updateUserPreferences);
 router.post('/getUser', userController.getUserByUid);
+router.get('/hi-user', userController.hiUser);
 
 module.exports = router;

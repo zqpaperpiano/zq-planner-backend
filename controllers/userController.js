@@ -1,6 +1,15 @@
 const bcrypt = require('bcrypt');
 const userService = require('../services/userService');
 
+exports.hiUser = async(req, res) => {
+    try{
+        res.send("Hello");
+    }catch(err){
+        console.log(err);
+        res.status(500).send(err);
+    }
+}
+
 exports.createNewUser = async (req, res) => {
     const { email, name } = req.body;
     try{
