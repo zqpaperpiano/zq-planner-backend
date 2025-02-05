@@ -4,12 +4,13 @@ const router =  express.Router();
 const verifyToken = require('../middleware/authMiddleware');
 
 router.post('/new-user', verifyToken, userController.createNewUser);
-router.get('/get-user', userController.getUserByEmail);
+router.post('/googleUser', verifyToken, userController.gettingGoogleLogins);
 router.get('/all-users', userController.getAllUsers);
 router.post('/updateDisplayInfo', userController.updateDisplayInformation);
-router.post('/log-in', userController.getUserLogin);
+router.post('/log-in', verifyToken, userController.getUserLogin);
 router.post('/newUserPreferences', userController.updateUserPreferences);
-router.post('/getUser', userController.getUserByUid);
-router.get('/hi-user', userController.hiUser);
+router.post('/getUser', verifyToken, userController.getUserByUid);
+router.post('/updateUserEventCategories', verifyToken, userController.updateUserEventCategories);
 
 module.exports = router;
+

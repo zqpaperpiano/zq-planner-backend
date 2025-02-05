@@ -1,10 +1,28 @@
 const db = require('../config/db');
-const docRef = db.collection("users");
+const docRef = db.collection("user");
 
-exports.createUser = async (user) => {
+
+exports.gettingGoogleLogins = async(user, uid) => {
     try{
-        const userId = user.uid;
-        const docSnapshot = await docRef.doc(userId).get();
+
+        const docSnapshot = await docRef.doc(uid).get();
+
+        if(docSnapshot.exists){
+            return docSnapshot.data();
+        }else{
+            await docRef.doc(uid).set(user);
+            const savedUser = (await docRef.doc(uid).get()).data();
+
+            return savedUser;
+        }
+    }catch(err){
+        throw err;
+    }
+}
+
+exports.createUser = async (user, uid) => {
+    try{
+        const docSnapshot = await docRef.doc(uid).get();
 
         if(docSnapshot.exists){
             const err = new Error('User already exists');
@@ -12,9 +30,9 @@ exports.createUser = async (user) => {
             throw err;
         }
         
-        await  db.collection("users").doc(userId).set(user);
+        await db.collection("user").doc(uid).set(user);
 
-        const savedUser = (await docRef.doc(userId).get()).data();
+        const savedUser = (await docRef.doc(uid).get()).data();
         return savedUser;
 
     }catch(err){
@@ -27,12 +45,12 @@ exports.getUserByUID = async(uid) => {
     try{
         const userSnapshot = await docRef.doc(uid).get();
         if(!userSnapshot.exists){
+            console.log('no exist');
             const err = new Error('User does not exist');
             err.statusCode = 404;
             throw  err;
         }
-
-        return userSnapshot;
+        return userSnapshot.data();
     }catch(err){
         throw err;
     }
@@ -67,33 +85,48 @@ exports.getAllUsers = async () => {
     }
 }
 
-exports.updateDisplayStats = async(email, displayName, status, pfp) => {
+exports.updateDisplayStats = async(uid, displayName, status) => {
     try{
-        const userRef = docRef.doc(email);
+        const userRef = docRef.doc(uid);
 
         await userRef.update({
-            "displayName": displayName,
-            "status": status,
-            "pfp": pfp
+            "name": displayName,
+            "status": status
         });
 
-        return {code: 200, message: "Information successfully updated"}
+        const userSnapshot = await userRef.get();
+        return userSnapshot.data(); 
     }catch(err){
         throw err;
     }
 }
 
-exports.updateUserPreferences = async(email, displayName, hasSchedule, schedule, hasSalary, salary) => {
+exports.updateUserPreferences = async(uid, preferences, displayName) => {
     try{
-        const userRef = docRef.doc(email);
+        const userRef = docRef.doc(uid);
         await userRef.update({
-            displayName,
-            hasSchedule,
-            schedule,
-            hasSalary,
-            salary
+            "displayName": displayName, 
+            "preferences": preferences,
+            "completedCalibration": true
         });
-        return {code: 200, message: "Preferences successfully updated"}
+        const userSnapshot = await userRef.get();
+
+        return userSnapshot.data();
+
+    }catch(err){
+        throw err;
+    }
+}
+
+exports.updateUserEventCategories = async(uid, categories) => {
+    try{
+        const userRef = docRef.doc(uid);
+        await userRef.update({
+            "categories": categories
+        });
+        const userSnapshot = await userRef.get();
+
+        return userSnapshot.data();
     }catch(err){
         throw err;
     }

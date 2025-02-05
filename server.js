@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const userRoutes = require('./routes/userRoutes');
+const dungeonRoutes = require('./routes/dungeonRoutes');
 const cors = require('cors');
 
 app.use(cors());
@@ -13,3 +14,4 @@ app.listen(PORT, () => {
 })
 
 app.use('/users', userRoutes);
+app.use('/dungeon', dungeonRoutes);
