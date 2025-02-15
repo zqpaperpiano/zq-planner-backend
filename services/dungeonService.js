@@ -9,36 +9,40 @@ exports.createNewDungeon = async(dungeon) => {
         const dungeonId = dungeonRef.id;        
         const savedDungeon = await dungeonRef.get();
         const dungeonData = savedDungeon.data();
-        return ({
-            dungeonId: dungeonId,
-            ...dungeonData
-        })
+
+        const newDungeon = {
+            [dungeonId]: 
+                dungeonData
+        }
+        return newDungeon;
     }catch(err){
         throw err;
     }
 }
 
-exports.getAllDungeons = async(userId) => {
-    try{
-        const dungeonList = [];
+exports.getAllDungeons = async (userId) => {
+    try {
+        // Fetch the dungeons from Firestore
+        const snapshot = await docRef.where('createdBy', '==', userId).get();
 
-        docRef.where('createdBy', '==', userId)
-        .get()
-        .then(snapshot => {
-            if(snapshot.empty){
-                console.log('No dungeons found');
-                return dungeonList;
-            }
+        if (snapshot.empty) {
+            console.log('No dungeons found');
+            return {};  // Return an empty object if no dungeons are found
+        }
 
-            snapshot.forEach(doc => {
-                dungeonList.push(doc.data());
-            });
-            return dungeonList;
-        })
-    }catch(err){
-        throw err; 
+        // Build the dungeonList object with dungeonId as key and dungeonData as value
+        const dungeonList = snapshot.docs.reduce((acc, doc) => {
+            const dungeonData = doc.data();
+            const dungeonId = doc.id;
+            acc[dungeonId] = dungeonData;  // Add dungeonData directly as the value
+            return acc;
+        }, {});
+
+        return dungeonList;  // Return the object containing all dungeons
+    } catch (err) {
+        throw err;  // Handle any errors by throwing them to be caught in the controller
     }
-}
+};
 
 exports.getDungeonById = async(dungeonId) => {
     try{
@@ -54,42 +58,10 @@ exports.getDungeonById = async(dungeonId) => {
     }
 }
 
-exports.updateDungeonDetails = async(dungeonId, dungeonName, dungeonDescription) => {
+exports.updateDungeonDetails = async(dungeonId, dungeonName, dungeonDescription, dungeonCheckpoints, completionProgress, dungeonCompleted) => {
     try{
-        const dungeonRef = docRef.doc(dungeonId);
-
-        await dungeonRef.update({
-            dungeonName: dungeonName,
-            dungeonDescription: dungeonDescription
-        });
+        const dungeonRef = await docRef.doc(dungeonId);
         const dungeonSnapshot = await dungeonRef.get();
-        return dungeonSnapshot.data();
-    }catch(err){
-        throw err;
-    }
-}
-
-exports.updateDungeonCompletions = async(dungeonId, dungeonCheckpoints, completionPercentage, dungeonCompleted) => {
-    try{
-        const dungeonRef = docRef.doc(dungeonId);
-
-        await dungeonRef.update({
-            dungeonCheckpoints: dungeonCheckpoints,
-            completionPercentage: completionPercentage,
-            dungeonCompleted: dungeonCompleted
-        });
-
-        const dungeonSnapshot = await dungeonRef.get();
-        return dungeonSnapshot.data();
-
-    }catch(err){
-        throw err;
-    }
-}
-
-exports.deleteDungeon = async(dungeonId) => {
-    try{
-        const dungeonRef = await docRef.doc(dungeonId).get();
 
         if(!dungeonSnapshot.exists){
             const err = new Error('Dungeon does not exist');
@@ -97,9 +69,41 @@ exports.deleteDungeon = async(dungeonId) => {
             throw err;
         }
 
-        await archiveRef.doc(dungeonId).set(dungeonRef.data());
-        await dungeonRef.delete();
+        await dungeonRef.update({
+            dungeonName: dungeonName,
+            dungeonDescription: dungeonDescription,
+            dungeonCheckpoints: dungeonCheckpoints,
+            completionProgress: completionProgress,
+            dungeonCompleted: dungeonCompleted
+        });
+        return dungeonSnapshot.data();;
     }catch(err){
         throw err;
     }
+}
+
+exports.deleteDungeon = async(dungeonId) => {
+    try {
+        const dungeonRef = docRef.doc(dungeonId); // Ensure `docRef` is a collection reference
+        const dungeonSnap = await dungeonRef.get(); // Get the document snapshot
+
+        if (!dungeonSnap.exists) {
+            const err = new Error('Dungeon does not exist');
+            err.statusCode = 404;
+            throw err;
+        }
+
+        const dungeonData = dungeonSnap.data(); // Extract the data
+
+        // Archive the dungeon data before deleting
+        await archiveRef.doc(dungeonId).set(dungeonData);
+
+        // Delete the dungeon
+        await dungeonRef.delete();
+
+        return { message: 'Dungeon deleted successfully' };
+        } catch (err) {
+            console.error('Error deleting dungeon:', err);
+            throw err;
+        }
 }
