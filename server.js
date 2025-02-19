@@ -15,3 +15,4 @@ app.listen(PORT, () => {
 
 app.use('/users', userRoutes);
 app.use('/dungeon', dungeonRoutes);
+app.use('/api/userStats', require('./routes/userStatRoutes'));
