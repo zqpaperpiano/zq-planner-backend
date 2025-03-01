@@ -17,7 +17,7 @@ exports.getAllEvents = async(req, res) => {
     const { userId } = req.params;
 
     try{
-        const eventList = await eventService.getAllEvents(userId);
+        const eventList = await eventService.getAllEvents(userId)
         res.status(200).json(eventList);
     }catch(err){
         console.log(err);
@@ -51,7 +51,7 @@ exports.updateEvent = async(req, res) => {
         if(err.statusCode === 404){
             res.status(404).send("Event does not exist");
         }else{
-            console.log(err);
+            console.log('an error has occured: ', err);
             res.status(500).send("An error in the server has occured. Please try again later.");
         }
     }

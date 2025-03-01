@@ -13,6 +13,7 @@ verifyToken = async(req, res, next) => {
     }
 
     const token = authHeader.split(' ')[1];
+    // console.log('token received: ', token);
 
     try{
         const decodedToken = await auth.verifyIdToken(token);

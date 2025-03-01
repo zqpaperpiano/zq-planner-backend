@@ -3,6 +3,7 @@ const userService = require('../services/userService');
 
 exports.gettingGoogleLogins = async(req, res) => {
     const {uid, email, name} = req.body;
+    const idToken = req.headers.authorization?.split('Bearer')[1];
 
     try{
         const newUser = await userService.gettingGoogleLogins({
@@ -11,6 +12,14 @@ exports.gettingGoogleLogins = async(req, res) => {
             "status": "The player has not set a status yet",
             "completedCalibration": false
         }, uid);
+
+        // res.cookie('idToken', idToken, {
+        //     httpOnly: true,
+        //     secure: true,
+        //     sameSite: "Lax",
+        // });
+
+
         res.status(201).json(newUser);
     }catch(err){
         console.log(err);

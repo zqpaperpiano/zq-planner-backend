@@ -6,16 +6,10 @@ const eventArchiveRef = db.collection("eventArchive");
 exports.createNewEvent = async(event) => {
     try{
         const eventRef = await eventDocRef.add(event);
-        const eventId = eventRef.id;
-        const savedEvent = await eventRef.get();
-        const eventData = savedEvent.data();
+        const eventSnapshot = await eventRef.get();
+        const eventData = eventSnapshot.data();
 
-        const newEvent = {
-            [eventId]: 
-                eventData
-        };
-
-        return newEvent;
+        return eventData;
     }catch(err){
         throw err;
     }
@@ -29,13 +23,12 @@ exports.getAllEvents = async (userId) => {
             return {};
         }
 
-        const eventList = snapshot.docs.reduce((acc, doc) => {
-            const eventData = doc.data();
-            const eventId = doc.id;
-            acc[eventId] = eventData;
-            return acc;
-        }, {});
+        const eventList = snapshot.docs.map(doc => ({
+            eventId: doc.id,
+            ...doc.data()
+        }))
 
+        // console.log(eventList);
         return eventList;
     }catch(err){
         throw err;
@@ -45,11 +38,13 @@ exports.getAllEvents = async (userId) => {
 exports.getEventById = async(eventId) => {
     try{
         const eventSnapshot = await eventDocRef.doc(eventId).get();
+
         if(!eventSnapshot.exists){
             const err = new Error('Event does not exist');
             err.statusCode = 404;
             throw err;
         }
+
         return eventSnapshot.data();
     }catch(err){
         throw err;
@@ -60,11 +55,11 @@ exports.updateEvent = async(eventId, updates) => {
     try{
         const eventRef = eventDocRef.doc(eventId);
         await eventRef.update(updates);
-        return {[eventId] : updates};
+        const eventSnapshot = await eventRef.get();
+        return eventSnapshot.data();
     }catch(err){
         throw err;
     }
-
 }
 
 exports.deleteEvent = async(eventId) => {

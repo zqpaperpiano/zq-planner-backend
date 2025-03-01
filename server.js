@@ -3,10 +3,12 @@ const app = express();
 const userRoutes = require('./routes/userRoutes');
 const dungeonRoutes = require('./routes/dungeonRoutes');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended:true}))
+app.use(cookieParser());
 
 const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
@@ -16,3 +18,4 @@ app.listen(PORT, () => {
 app.use('/users', userRoutes);
 app.use('/dungeon', dungeonRoutes);
 app.use('/api/userStats', require('./routes/userStatRoutes'));
+app.use('/event', require('./routes/eventRoutes'));
