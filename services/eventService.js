@@ -57,7 +57,7 @@ exports.updateEvent = async(eventId, updates) => {
         await eventRef.update(updates);
         const eventSnapshot = await eventRef.get();
         return eventSnapshot.data();
-    }catch(err){
+    }catch(err){ 
         throw err;
     }
 }
@@ -74,7 +74,7 @@ exports.deleteEvent = async(eventId) => {
         }
 
         const eventData = eventSnapshot.data();
-        await eventArchiveRef.dov(eventId).set(eventData);
+        await eventArchiveRef.doc(eventId).set(eventData);
         await eventRef.delete();
 
         return { message: "Event deleted successfully" };

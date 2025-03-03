@@ -122,7 +122,7 @@ exports.updateUserEventCategories = async(uid, categories) => {
     try{
         const userRef = docRef.doc(uid);
         await userRef.update({
-            "categories": categories
+            "preferences.categories": categories
         });
         const userSnapshot = await userRef.get();
 

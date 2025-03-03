@@ -133,6 +133,7 @@ exports.updateUserEventCategories = async(req, res) => {
 
     try{
         const user = await userService.updateUserEventCategories(uid, categories);
+        console.log(user);
         res.status(200).send(user);
     }catch(err){
         console.log('error from controller for event category update: ', err);
