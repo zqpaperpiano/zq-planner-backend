@@ -11,6 +11,7 @@ router.post('/log-in', verifyToken, userController.getUserLogin);
 router.post('/newUserPreferences', userController.updateUserPreferences);
 router.post('/getUser', verifyToken, userController.getUserByUid);
 router.post('/updateUserEventCategories', verifyToken, userController.updateUserEventCategories);
+router.post('/setAuthCookie', userController.setAuthCookie);
 
 module.exports = router;
 

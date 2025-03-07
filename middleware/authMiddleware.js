@@ -1,17 +1,12 @@
 // middleware/authMiddleware.js
 
 const auth = require('../config/auth');
-
-const COOKIE_NAME = "authToken";
-const COOKIE_OPTIONS = {
-    httpOnly: true,
-    secure: false, // Use true in production with HTTPS
-    sameSite: 'Lax',
-    maxAge: 3600 * 1000, // 1 hour
-};
+const {COOKIE_NAME} = require('../config/auth')
+const {COOKIE_OPTIONS} = require('../config/auth')
+const userController = require('../controllers/userController');
 
 // Verify token middleware
-const verifyToken = async (req, res, next) => {
+verifyToken = async (req, res, next) => {
     let token = req.cookies.authToken;
 
     console.log('my cookies: ', req.cookies);
@@ -32,7 +27,7 @@ const verifyToken = async (req, res, next) => {
         const existingToken = req.cookies?.[COOKIE_NAME];
 
         if (!existingToken || (decodedToken.exp * 1000 - Date.now() < 10 * 60 * 1000)) {
-            console.log('adding into cookies');
+            res.cookie(COOKIE_NAME, token, COOKIE_OPTIONS);
         }
 
         next();
@@ -44,13 +39,7 @@ const verifyToken = async (req, res, next) => {
 
 module.exports = verifyToken;
 
-exports.setAuthCookie = async(req, res) => {
-    try{
-        const token = req.body.token;
-        res.cookie(COOKIE_NAME, token, COOKIE_OPTIONS);
-        res.status(200).json({ message: 'Auth cookie set' });
-    }catch(err){
-        res.status(500).json({ error: 'Error setting auth cookie' });
-    }
-}
+
+
+
 

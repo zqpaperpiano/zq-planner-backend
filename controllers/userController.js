@@ -141,4 +141,15 @@ exports.updateUserEventCategories = async(req, res) => {
     }
 }
 
+exports.setAuthCookie = async(req, res) => {
+    const {token} = req.body;
+
+    try{
+        res.cookie(COOKIE_NAME, token, COOKIE_OPTIONS);
+        res.status(200).send('Cookie set');
+    }catch(err){
+        res.status(500).send('An error has occured');
+    }
+}
+
 

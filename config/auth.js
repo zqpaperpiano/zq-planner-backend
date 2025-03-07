@@ -23,8 +23,4 @@ const COOKIE_OPTIONS = {
     maxAge: 3600 * 1000, // 1 hour
 };
 
-const auth = admin.auth();
-
-module.exports = auth;
-module.exports = COOKIE_NAME;
-module.exports = COOKIE_OPTIONS;
+module.exports = {COOKIE_NAME, COOKIE_OPTIONS};
