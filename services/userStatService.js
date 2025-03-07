@@ -1,5 +1,5 @@
 // services/userStatService.js
-const db = require('../config/db');
+const {db} = require('../config/db');
 
 // Reference to the userStats collection
 const userStatsRef = db.collection("userStats");

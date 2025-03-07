@@ -1,5 +1,5 @@
 
-const auth = require('../config/db');
+const {auth} = require('../config/db');
 const {COOKIE_NAME} = require('../config/auth')
 const {COOKIE_OPTIONS} = require('../config/auth')
 

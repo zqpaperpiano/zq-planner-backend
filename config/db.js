@@ -27,6 +27,4 @@ if (process.env.NODE_ENV !== "test") {
 const db = admin.firestore();
 const auth = admin.auth();
 
-module.exports = admin;
-module.exports = auth;
-module.exports =  db;
+module.exports = {admin, db, auth};

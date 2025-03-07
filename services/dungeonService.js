@@ -1,4 +1,4 @@
-const db = require('../config/db');
+const {db} = require('../config/db');
 
 const docRef = db.collection("dungeon");
 const archiveRef = db.collection("dungeonArchive");
