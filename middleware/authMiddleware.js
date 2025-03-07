@@ -1,4 +1,3 @@
-
 const {auth} = require('../config/db');
 const {COOKIE_NAME} = require('../config/auth')
 const {COOKIE_OPTIONS} = require('../config/auth')
@@ -19,7 +18,7 @@ verifyToken = async (req, res, next) => {
     }
 
     try {
-        const decodedToken = await auth.verifyToken(token);
+        const decodedToken = await auth.verifyIdToken(token);
         req.user = decodedToken;
 
         const existingToken = req.cookies?.[COOKIE_NAME];
