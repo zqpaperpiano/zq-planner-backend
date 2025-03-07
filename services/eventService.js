@@ -9,6 +9,8 @@ exports.createNewEvent = async(event) => {
         const eventSnapshot = await eventRef.get();
         const eventData = eventSnapshot.data();
 
+        eventData.eventId = eventRef.id; 
+
         return eventData;
     }catch(err){
         throw err;

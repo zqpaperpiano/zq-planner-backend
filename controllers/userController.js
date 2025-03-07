@@ -3,7 +3,6 @@ const userService = require('../services/userService');
 
 exports.gettingGoogleLogins = async(req, res) => {
     const {uid, email, name} = req.body;
-    const idToken = req.headers.authorization?.split('Bearer')[1];
 
     try{
         const newUser = await userService.gettingGoogleLogins({
@@ -103,8 +102,8 @@ exports.updateDisplayInformation = async(req, res) => {
 }
 
 exports.getUserLogin = async(req, res) => {
-    const {uid} = req.body;
     try{
+        const uid = req.user.uid;
         const user = await userService.getUserByUID(uid);
         res.status(200).json(user);
     }catch(err){

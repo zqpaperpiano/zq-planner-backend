@@ -5,10 +5,14 @@ const dungeonRoutes = require('./routes/dungeonRoutes');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:3000',
+    credentials: true
+}));
 app.use(express.json());
 app.use(express.urlencoded({extended:true}))
 app.use(cookieParser());
+
 
 const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
