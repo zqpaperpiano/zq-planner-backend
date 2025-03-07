@@ -1,5 +1,7 @@
 const bcrypt = require('bcrypt');
 const userService = require('../services/userService');
+const COOKIE_OPTIONS = require('../config/auth');
+const COOKIE_NAME = require('../config/auth');
 
 exports.gettingGoogleLogins = async(req, res) => {
     const {uid, email, name} = req.body;
@@ -138,4 +140,5 @@ exports.updateUserEventCategories = async(req, res) => {
         console.log('error from controller for event category update: ', err);
     }
 }
+
 

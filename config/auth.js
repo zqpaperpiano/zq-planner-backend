@@ -15,6 +15,16 @@ const credentials = {
     client_x509_cert_url: process.env.FIREBASE_CLIENT_X509_CERT_URL
   };
 
+const COOKIE_NAME = "authToken"
+const COOKIE_OPTIONS = {
+    httpOnly: true,
+    secure: false, // Use true in production with HTTPS
+    sameSite: 'Lax',
+    maxAge: 3600 * 1000, // 1 hour
+};
+
 const auth = admin.auth();
 
 module.exports = auth;
+module.exports = COOKIE_NAME;
+module.exports = COOKIE_OPTIONS;
