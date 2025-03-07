@@ -145,9 +145,12 @@ exports.setAuthCookie = async(req, res) => {
     const {token} = req.body;
 
     try{
+        console.log('received token: ', token);
+
         res.cookie(COOKIE_NAME, token, COOKIE_OPTIONS);
         res.status(200).send('Cookie set');
     }catch(err){
+        console.log('error from controller for setting cookie: ', err);
         res.status(500).send('An error has occured');
     }
 }
