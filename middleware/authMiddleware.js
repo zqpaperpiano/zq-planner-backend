@@ -1,15 +1,13 @@
-// middleware/authMiddleware.js
 
-const auth = require('../config/auth');
+const auth = require('')
 const {COOKIE_NAME} = require('../config/auth')
 const {COOKIE_OPTIONS} = require('../config/auth')
-const userController = require('../controllers/userController');
 
 // Verify token middleware
 verifyToken = async (req, res, next) => {
     let token = req.cookies.authToken;
 
-    console.log('my cookies: ', req.cookies);
+    // console.log('my cookies: ', req.cookies);
 
     if (!token) {
         const alt = req.body.token;

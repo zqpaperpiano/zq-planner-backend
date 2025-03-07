@@ -1,4 +1,3 @@
-const COOKIE_OPTIONS = require('../config/auth');
 const db = require('../config/db');
 const docRef = db.collection("user");
 
