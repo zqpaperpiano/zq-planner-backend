@@ -1,7 +1,6 @@
 const bcrypt = require('bcrypt');
 const userService = require('../services/userService');
-const COOKIE_OPTIONS = require('../config/auth');
-const COOKIE_NAME = require('../config/auth');
+const {COOKIE_OPTIONS, COOKIE_NAME} = require('../config/auth');
 
 exports.gettingGoogleLogins = async(req, res) => {
     const {uid, email, name} = req.body;
@@ -145,13 +144,21 @@ exports.setAuthCookie = async(req, res) => {
     const {token} = req.body;
 
     try{
-        console.log('received token: ', token);
-
+        console.log('cookie options: ', COOKIE_OPTIONS); 
         res.cookie(COOKIE_NAME, token, COOKIE_OPTIONS);
         res.status(200).send('Cookie set');
     }catch(err){
         console.log('error from controller for setting cookie: ', err);
         res.status(500).send('An error has occured');
+    }
+}
+
+exports.userLogOut = async(req, res) => {
+    try{
+        res.clearCookie(COOKIE_NAME, COOKIE_OPTIONS);
+        res.status(200).send('Cookie cleared');
+    }catch(err){
+        res.status(500).send('An error has occured. Cookies was not able to be');
     }
 }
 

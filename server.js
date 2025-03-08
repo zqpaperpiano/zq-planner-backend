@@ -21,6 +21,6 @@ app.listen(PORT, () => {
 
 app.use('/users', userRoutes);
 app.use('/dungeon', dungeonRoutes);
-app.use('/api/userStats', require('./routes/userStatRoutes'));
+app.use('/userStats', require('./routes/userStatRoutes'));
 app.use('/event', require('./routes/eventRoutes'));
 // app.use('/auth', require('./routes/authRoutes'));

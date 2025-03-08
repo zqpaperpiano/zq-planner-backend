@@ -13,6 +13,7 @@ exports.gettingGoogleLogins = async(user, uid) => {
             await docRef.doc(uid).set(user);
             const savedUser = (await docRef.doc(uid).get()).data();
 
+
             return savedUser;
         }
     }catch(err){
