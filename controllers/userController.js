@@ -143,6 +143,7 @@ exports.setAuthCookie = async(req, res) => {
     const {token} = req.body;
 
     try{
+        console.log('trying to set a new cookkie!!!!');
         // console.log('cookie options: ', COOKIE_OPTIONS); 
         res.cookie(COOKIE_NAME, token, COOKIE_OPTIONS);
         res.status(200).send('Cookie set');
