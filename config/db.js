@@ -16,25 +16,25 @@ if (process.env.NODE_ENV !== "test") {
     auth_provider_x509_cert_url: process.env.FIREBASE_AUTH_PROVIDER_X509_CERT_URL,
     client_x509_cert_url: process.env.FIREBASE_CLIENT_X509_CERT_URL,
   };
-  const serviceAccountBase64 = process.env.FIREBASE_SERVICE_ACCOUNT_JSON;
+  // const serviceAccountBase64 = process.env.FIREBASE_SERVICE_ACCOUNT_JSON;
 
-  if(!serviceAccountBase64){
-    console.log('No service account provided');
-    process.exit(1);
-  }
+  // if(!serviceAccountBase64){
+  //   console.log('No service account provided');
+  //   process.exit(1);
+  // }
 
   try{
-    const serviceAccountJson = Buffer.from(serviceAccountBase64, 'base64').toString('utf-8');
-    const serviceAccount = JSON.parse(serviceAccountJson);
-    admin.initializeApp({
-      credential: admin.credential.cert(serviceAccount),
-      projectId: serviceAccount.project_id,
-    });
-
+    // const serviceAccountJson = Buffer.from(serviceAccountBase64, 'base64').toString('utf-8');
+    // const serviceAccount = JSON.parse(serviceAccountJson);
     // admin.initializeApp({
-    //   credential: admin.credential.cert(credentials),
-    //   projectId: process.env.FIREBASE_PROJECT_ID,
-    // })
+    //   credential: admin.credential.cert(serviceAccount),
+    //   projectId: serviceAccount.project_id,
+    // });
+
+    admin.initializeApp({
+      credential: admin.credential.cert(credentials),
+      projectId: process.env.FIREBASE_PROJECT_ID,
+    })
 
   }catch(err){
     console.log('error intializing firebase ', err);
