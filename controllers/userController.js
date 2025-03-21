@@ -1,9 +1,8 @@
-const bcrypt = require('bcrypt');
 const userService = require('../services/userService');
+const {COOKIE_OPTIONS, COOKIE_NAME} = require('../config/auth');
 
 exports.gettingGoogleLogins = async(req, res) => {
     const {uid, email, name} = req.body;
-    const idToken = req.headers.authorization?.split('Bearer')[1];
 
     try{
         const newUser = await userService.gettingGoogleLogins({
@@ -103,8 +102,8 @@ exports.updateDisplayInformation = async(req, res) => {
 }
 
 exports.getUserLogin = async(req, res) => {
-    const {uid} = req.body;
     try{
+        const uid = req.user.uid;
         const user = await userService.getUserByUID(uid);
         res.status(200).json(user);
     }catch(err){
@@ -139,4 +138,27 @@ exports.updateUserEventCategories = async(req, res) => {
         console.log('error from controller for event category update: ', err);
     }
 }
+
+exports.setAuthCookie = async(req, res) => {
+    const {token} = req.body;
+
+    try{
+        // console.log('cookie options: ', COOKIE_OPTIONS); 
+        res.cookie(COOKIE_NAME, token, COOKIE_OPTIONS);
+        res.status(200).send('Cookie set');
+    }catch(err){
+        console.log('error from controller for setting cookie: ', err);
+        res.status(500).send('An error has occured');
+    }
+}
+
+exports.userLogOut = async(req, res) => {
+    try{
+        res.clearCookie(COOKIE_NAME);
+        res.status(200).send('Cookie cleared');
+    }catch(err){
+        res.status(500).send('An error has occured. Cookies was not able to be');
+    }
+}
+
 

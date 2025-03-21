@@ -1,4 +1,4 @@
-const db = require('../config/db');
+const {db} = require('../config/db');
 
 const eventDocRef = db.collection("events");
 const eventArchiveRef = db.collection("eventArchive");
@@ -8,6 +8,8 @@ exports.createNewEvent = async(event) => {
         const eventRef = await eventDocRef.add(event);
         const eventSnapshot = await eventRef.get();
         const eventData = eventSnapshot.data();
+
+        eventData.eventId = eventRef.id; 
 
         return eventData;
     }catch(err){

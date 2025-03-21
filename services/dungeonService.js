@@ -1,4 +1,4 @@
-const db = require('../config/db');
+const {db} = require('../config/db');
 
 const docRef = db.collection("dungeon");
 const archiveRef = db.collection("dungeonArchive");
@@ -76,7 +76,12 @@ exports.updateDungeonDetails = async(dungeonId, dungeonName, dungeonDescription,
             completionProgress: completionProgress,
             dungeonCompleted: dungeonCompleted
         });
-        return dungeonSnapshot.data();;
+
+        const updatedDungeonSnapshot = await dungeonRef.get();
+        const updatedData = updatedDungeonSnapshot.data();
+
+        // Return the dungeonId as the key, with the updated dungeon data as the value
+        return { [dungeonId]: updatedData };
     }catch(err){
         throw err;
     }

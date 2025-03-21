@@ -45,6 +45,7 @@ exports.updateEvent = async(req, res) => {
     const { eventId, updates } = req.body;
 
     try{
+        console.log('eventId: ', eventId);
         const updatedEvent = await eventService.updateEvent(eventId, updates);
         res.status(200).json(updatedEvent);
     }catch(err){

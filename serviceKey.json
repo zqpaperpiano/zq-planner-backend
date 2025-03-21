@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "ziqing-quest-planner",
+  "private_key_id": "c23b808f00ecc1c33fd090a35583bf69fcbb6acc",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDiYReZAVDN3swI\ngdnSS4dZQxqPQHWgd4jj0Q90x69T9CcesQsAI5SIcZdhEu1/skHrHPWUHijZyWfL\n8qZUMqOjJKX8C+Ppp20SD11kmaeH3o0qbXKn62xjSjp8DhBXpK2AHgsIUm5LRmmx\n9EZOQ8dUl0MN01WqtQZwq3Vz08KJ4Yv/vRtceWeJTWrLsEdkFAcCl78u2BKHqjfL\noBMcIBeeHHQpkirxOzES1sJKCUYgjWsSS26Vnp3dcDiBkutuIavR+dkF8aPS9ka+\nLNEVBS1a21yvEWyP7/ScJlnkMkl/awHMs4pSwTmqs1DBCEh8miY3VcNpVgH9CoTO\nTxAJRFRFAgMBAAECggEABclRNu4o2Gz1Tn2x3tANwHMt0XM72SNaYpGxm/IODLl6\nayyU/pFqQVyUmnzHM6g6Ssiy4ZuDFCII9FZvovT9Esqj2tVGTkQjI77fIRb+XcOL\nXIYZ/qnOsPEGSAJ8r3N8TdXha/qIwDAnZnmQdygAsdcAoJtXdBAW1I1wE0sFN3dP\nR4S6dM7/GjV622EpzSmc+eaWAjwR240OLQCEiJGfE9Q+LtvV/xZxixT5CORh1M2t\ngiGECUDEG6sykI12gUB8+i4TY51dLjh/4U/clSkgY8lDeMirRcpYQJ10Unpx/uVL\nh9qg8H5OlDlgl5MERvgBbvj0gt8ogBXbiulgpXpKQQKBgQD5Nz59yeSgqdaSMetO\nfQRikN4ys+CaMzYXYfxJ9ijvAnJpGPkFI2i1bzQrQAfY10UkYGmUv1j9A202nL+V\nfRj6hwSEGsbSCy9ypMCNI7WCvxtBUW1Ki7VxIyWQFUULXYyaiTxBD5LVH0P2nB5+\nI4b23nXsuk3OIet9IC3V07mvpQKBgQDoirP0KlBTqmxEFJvPdsBBnjyuw9mhZQxG\nm+nmRdsX+9DbmTeK+6BqCRR/+9tdq5HwYWSdR2o5gP97ebGuUMBsoAu8Hq4ZInlB\ns1PHfgbqhrbSYv5qbyjbMqYFv+9V0X3bgwPWF+u593XZgIm9aU6fI4gSNVXhZcBQ\nBmvfEuLwIQKBgBse4/IUcoj5cpxeSlk0SbHgSg4CfULKp+xLgYUbAMFh5smBKjhg\n7hgwjeDXCwOSCbg3tcW2PRzrroru6/p8rqc04kzuDQz2oqc7PqkdZbdgzLqC/f3K\nzmgNhxzy85yVBaQboy8BXt1Klb7UpozbmOhstTCZ5bW1A0eOpO5MKDzxAoGATQH5\n3AbTORG77sPAYXDa9B/5yopTHM6AxTVGvRovFv8uSDqyGRWBJvxAzK1UFO4HU0p9\nblRDCi387R/8xlQ5lP9fQ3oJf4taCnbfbLYAhlP8YSmlRQvwxL4+GrNYB9xrSHFX\nqOOdDaW0YkXd11rzTWIP4q/E8/KlQBsQR/xSKOECgYAI4PxvlcXuTk7hOwesf4FV\n3oyjmJ7pHGroIgit5dbcgBUvExfAxCu2iq1doRTdbTVBjbutv1SCM5g/zQKbBZEd\n55g8L/Gtbed+P2z2eP9B+zhs0X2/GBeiSTrZj+tEdiCGYJeRQ9Rd54HtP3dw5mU2\nWnUEy2U+2KuX84lZ287uog==\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-xh18d@ziqing-quest-planner.iam.gserviceaccount.com",
+  "client_id": "101282560230142904219",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-xh18d%40ziqing-quest-planner.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

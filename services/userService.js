@@ -1,4 +1,4 @@
-const db = require('../config/db');
+const {db} = require('../config/db');
 const docRef = db.collection("user");
 
 
@@ -12,6 +12,7 @@ exports.gettingGoogleLogins = async(user, uid) => {
         }else{
             await docRef.doc(uid).set(user);
             const savedUser = (await docRef.doc(uid).get()).data();
+
 
             return savedUser;
         }
@@ -131,3 +132,5 @@ exports.updateUserEventCategories = async(uid, categories) => {
         throw err;
     }
 }
+
+

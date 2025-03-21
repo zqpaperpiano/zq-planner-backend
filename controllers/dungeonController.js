@@ -20,6 +20,7 @@ exports.getAllDungeons = async(req, res) => {
 
     try{
         const dungeonList = await dungeonService.getAllDungeons(userId);
+        // console.log('dungeonList: ', dungeonList);
         res.status(200).json(dungeonList);
     }catch(err){
         console.log(err);
@@ -43,15 +44,15 @@ exports.getDungeonById = async(req, res) => {
 }
 
 exports.updateDungeonDetails = async(req, res) => {
-    const {dungeonId, dungeonName, dungeonDescription, dungeonCheckpoints, completionPercentage} = req.body;
+    const {dungeonId, dungeonName, dungeonDescription, dungeonCheckpoints, completionProgress} = req.body;
 
     try{
-        const dungeonCompleted = completionPercentage === 1 ? true : false;
-        const updatedDungeon = await dungeonService.updateDungeonDetails(dungeonId, dungeonName, dungeonDescription, dungeonCheckpoints, completionPercentage, dungeonCompleted)
-        .then(res => {
-            console.log(res);
-            return res;
-        })
+        // console.log('my checkpoints received:', dungeonCheckpoints);
+        const dungeonCompleted = completionProgress === 1 ? true : false;
+        const updatedDungeon = await dungeonService.updateDungeonDetails(dungeonId, dungeonName, dungeonDescription, dungeonCheckpoints, completionProgress, dungeonCompleted)
+
+        // console.log('my updated dungeon', updatedDungeon[dungeonId].dungeonCheckpoints);
+
         res.status(200).json(updatedDungeon);
     }catch(err){
         if(err.statusCode === 404){
