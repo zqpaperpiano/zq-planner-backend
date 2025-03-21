@@ -3,8 +3,8 @@ name: Docker Image Build and Push
 on:
   push:
     branches:
-      - main # Or your desired branch
-
+      - main
+        
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
