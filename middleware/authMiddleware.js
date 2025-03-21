@@ -29,8 +29,13 @@ verifyToken = async (req, res, next) => {
 
         next();
     } catch (err) {
-        console.log(err);
-        res.status(500).json({ error: 'Error verifying token' });
+        if (err.code === 'auth/id-token-expired') {
+            res.status(401).json({ error: 'Token expired' });
+        }else{
+            console.log(err);
+            res.status(500).json({ error: 'Error verifying token' });
+        }
+        
     }
 };
 

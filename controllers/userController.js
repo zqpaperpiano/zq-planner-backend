@@ -1,4 +1,3 @@
-const bcrypt = require('bcrypt');
 const userService = require('../services/userService');
 const {COOKIE_OPTIONS, COOKIE_NAME} = require('../config/auth');
 
@@ -144,7 +143,7 @@ exports.setAuthCookie = async(req, res) => {
     const {token} = req.body;
 
     try{
-        console.log('cookie options: ', COOKIE_OPTIONS); 
+        // console.log('cookie options: ', COOKIE_OPTIONS); 
         res.cookie(COOKIE_NAME, token, COOKIE_OPTIONS);
         res.status(200).send('Cookie set');
     }catch(err){
@@ -155,7 +154,7 @@ exports.setAuthCookie = async(req, res) => {
 
 exports.userLogOut = async(req, res) => {
     try{
-        res.clearCookie(COOKIE_NAME, COOKIE_OPTIONS);
+        res.clearCookie(COOKIE_NAME);
         res.status(200).send('Cookie cleared');
     }catch(err){
         res.status(500).send('An error has occured. Cookies was not able to be');

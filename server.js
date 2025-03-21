@@ -19,6 +19,11 @@ app.listen(PORT, () => {
     console.log(`Server is running on Port ${PORT}`);
 })
 
+app.get('/checkStatus', (req, res) => {
+    console.log('Server status checked.');
+    res.send('Server is running'); // Send a response
+});
+
 app.use('/users', userRoutes);
 app.use('/dungeon', dungeonRoutes);
 app.use('/userStats', require('./routes/userStatRoutes'));

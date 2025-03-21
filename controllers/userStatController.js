@@ -9,7 +9,10 @@ exports.initializeUserStats = async (req, res) => {
             return res.status(400).json({ error: "uid is required" });
         }
 
+        // console.log('hello!!!');
+
         const stats = await userStatService.initializeUserStats(uid);
+        // console.log('received: ', stats);
         return res.status(201).send(stats);
     } catch (error) {
         console.error("Error initializing user stats:", error);
@@ -28,6 +31,8 @@ exports.updateUserStats = async (req, res) => {
         }
 
         const updatedStats = await userStatService.updateUserStats(uid, updates);
+        // console.log('my updated stats: ', updatedStats);    
+
         return res.status(200).json({ message: "User stats updated", updatedStats });
     } catch (error) {
         console.error("Error updating user stats:", error);
@@ -38,13 +43,13 @@ exports.updateUserStats = async (req, res) => {
 // 3️⃣ Get user stats
 exports.getUserStats = async (req, res) => {
     try {   
+
         const uid = req.user.uid;
         if (!uid) {
             return res.status(400).json({ error: "uid is required" });
         }
 
-        const stats = await userStatService.getUserStats(uid);
-        return res.status(200).json({ stats });
+        return res.status(200).send(stats);
     } catch (error) {
         console.error("Error retrieving user stats:", error);
         res.status(500).json({ error: error.message });
