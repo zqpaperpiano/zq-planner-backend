@@ -33,7 +33,7 @@ exports.updateUserStats = async (req, res) => {
         const updatedStats = await userStatService.updateUserStats(uid, updates);
         // console.log('my updated stats: ', updatedStats);    
 
-        return res.status(200).json({ message: "User stats updated", updatedStats });
+        return res.status(200).send(updatedStats);
     } catch (error) {
         console.error("Error updating user stats:", error);
         res.status(500).json({ error: error.message });
