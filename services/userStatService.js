@@ -48,9 +48,8 @@ exports.updateUserStats = async (userId, updates) => {
         const updatedStats = { ...currentStats };
 
         for (const [key, value] of Object.entries(updates)) {
-            if (typeof value === "number") {
-                updatedStats[key] = (updatedStats[key] || 0) + value;
-            }
+            // If a value is explicitly provided in the updates, set it (can overwrite)
+            updatedStats[key] = value;
         }
 
         transaction.set(userStatDoc, updatedStats);
