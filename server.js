@@ -6,7 +6,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: 'https://ziqing-s-planner.onrender.com/',
     credentials: true
 }));
 app.use(express.json());
