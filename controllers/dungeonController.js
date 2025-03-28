@@ -44,12 +44,12 @@ exports.getDungeonById = async(req, res) => {
 }
 
 exports.updateDungeonDetails = async(req, res) => {
-    const {dungeonId, dungeonName, dungeonDescription, dungeonCheckpoints, completionProgress} = req.body;
+    const {dungeonId, dungeonName, color, dungeonDescription, dungeonCheckpoints, completionProgress} = req.body;
 
     try{
         // console.log('my checkpoints received:', dungeonCheckpoints);
         const dungeonCompleted = completionProgress === 1 ? true : false;
-        const updatedDungeon = await dungeonService.updateDungeonDetails(dungeonId, dungeonName, dungeonDescription, dungeonCheckpoints, completionProgress, dungeonCompleted)
+        const updatedDungeon = await dungeonService.updateDungeonDetails(dungeonId, dungeonName, color, dungeonDescription, dungeonCheckpoints, completionProgress, dungeonCompleted)
 
         // console.log('my updated dungeon', updatedDungeon[dungeonId].dungeonCheckpoints);
 

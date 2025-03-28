@@ -58,7 +58,7 @@ exports.getDungeonById = async(dungeonId) => {
     }
 }
 
-exports.updateDungeonDetails = async(dungeonId, dungeonName, dungeonDescription, dungeonCheckpoints, completionProgress, dungeonCompleted) => {
+exports.updateDungeonDetails = async(dungeonId, dungeonName, color, dungeonDescription, dungeonCheckpoints, completionProgress, dungeonCompleted) => {
     try{
         const dungeonRef = await docRef.doc(dungeonId);
         const dungeonSnapshot = await dungeonRef.get();
@@ -71,6 +71,7 @@ exports.updateDungeonDetails = async(dungeonId, dungeonName, dungeonDescription,
 
         await dungeonRef.update({
             dungeonName: dungeonName,
+            color: color, 
             dungeonDescription: dungeonDescription,
             dungeonCheckpoints: dungeonCheckpoints,
             completionProgress: completionProgress,

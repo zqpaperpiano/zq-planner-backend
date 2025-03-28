@@ -9,7 +9,14 @@ exports.gettingGoogleLogins = async(req, res) => {
             "email": email,
             "name": name,
             "status": "The player has not set a status yet",
-            "completedCalibration": false
+            "completedCalibration": false,
+            'preferences': {
+                'cat1': {color: '#ca4a55', name: 'Clearing dungeons'},
+                'cat2': {color: '#ee694b', name: 'Running Errands'},
+                'cat3': {color: '#fdb814', name: 'Misc'},
+                'cat4': {color: "#30ad6e", name: 'Meetings'},
+                'cat5': {color: "#1d58a0", name: 'Social Activities'}
+            }
         }, uid);
 
         // res.cookie('idToken', idToken, {
@@ -34,7 +41,14 @@ exports.createNewUser = async (req, res) => {
             "email": email,
             "name": name,
             "status": "The player has not set a status yet",
-            "completedCalibration": false
+            "completedCalibration": false,
+            'preferences': {
+                'cat1': {color: '#ca4a55', name: 'Clearing dungeons'},
+                'cat2': {color: '#ee694b', name: 'Running Errands'},
+                'cat3': {color: '#fdb814', name: 'Misc'},
+                'cat4': {color: "#30ad6e", name: 'Meetings'},
+                'cat5': {color: "#1d58a0", name: 'Social Activities'}
+            }
         }, uid);
         res.status(201).json(newUser);
     }catch(err){
