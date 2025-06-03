@@ -8,5 +8,6 @@ router.get('/get-dungeon', verifyToken, dungeonController.getDungeonById);
 router.get('/get-all-dungeons/:userId', verifyToken, dungeonController.getAllDungeons);
 router.post('/update-dungeon-details', verifyToken, dungeonController.updateDungeonDetails); 
 router.delete('/delete-dungeon', verifyToken, dungeonController.deleteDungeon);
+router.post('/completed-dungeon', verifyToken, dungeonController.completedDungeon);
 
 module.exports = router;   

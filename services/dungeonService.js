@@ -2,6 +2,7 @@ const {db} = require('../config/db');
 
 const docRef = db.collection("dungeon");
 const archiveRef = db.collection("dungeonArchive");
+const completedRef = db.collection("completedDungeons");
 
 exports.createNewDungeon = async(dungeon) => {
     try{
@@ -83,6 +84,27 @@ exports.updateDungeonDetails = async(dungeonId, dungeonName, color, dungeonDescr
 
         // Return the dungeonId as the key, with the updated dungeon data as the value
         return { [dungeonId]: updatedData };
+    
+    }catch(err){
+        throw err;
+    }
+}
+
+exports.completedDungeon = async(dungeonId, dungeonName, color, dungeonDescription, dungeonCheckpoints, completionProgress, dungeonCompleted) => {
+    try{
+        const dungeonRef = await docRef.doc(dungeonId);
+        const dungeonSnapshot = await dungeonRef.get();
+
+        if(!dungeonSnapshot.exists){
+            const err = new Error('Dungeon does not exist');
+            err.statusCode = 404;
+            throw err;
+        }
+
+        await completedRef.doc(dungeonId).set(dungeonSnapshot.data());
+        await dungeonRef.delete();
+
+        return { message: 'Dungeon completed and archived successfully' };
     }catch(err){
         throw err;
     }

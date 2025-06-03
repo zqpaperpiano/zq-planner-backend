@@ -24,8 +24,13 @@ app.listen(PORT, () => {
 })
 
 app.get('/checkStatus', (req, res) => {
-    console.log('Server status checked.');
-    res.send('Server is running'); // Send a response
+    let evens = [];
+    for(let i = 0; i < 1000; ++i){
+        if(evens % 2 === 0){
+            evens.push(i);
+        }
+    }
+    res.send('found ', evens.length, ' even numbers below 1000'); // Send a response
 });
 
 app.use('/users', userRoutes);

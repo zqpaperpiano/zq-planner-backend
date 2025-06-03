@@ -44,16 +44,34 @@ exports.getDungeonById = async(req, res) => {
 }
 
 exports.updateDungeonDetails = async(req, res) => {
-    const {dungeonId, dungeonName, color, dungeonDescription, dungeonCheckpoints, completionProgress} = req.body;
+    const {dungeonId, dungeonName, color, dungeonDescription, dungeonCheckpoints, completionProgress, dungeonCompleted} = req.body;
 
     try{
-        // console.log('my checkpoints received:', dungeonCheckpoints);
-        const dungeonCompleted = completionProgress === 1 ? true : false;
+
         const updatedDungeon = await dungeonService.updateDungeonDetails(dungeonId, dungeonName, color, dungeonDescription, dungeonCheckpoints, completionProgress, dungeonCompleted)
-
-        // console.log('my updated dungeon', updatedDungeon[dungeonId].dungeonCheckpoints);
-
         res.status(200).json(updatedDungeon);
+
+
+    }catch(err){
+        if(err.statusCode === 404){
+            res.status(404).send("Dungeon does not exist");
+        }else{
+            console.log('error!!!');
+            console.log(err);
+            res.status(500).send(err);
+        }
+    }
+}
+
+exports.completedDungeon = async(req, res) => {
+    const {dungeonId, dungeonName, color, dungeonDescription, dungeonCheckpoints, completionProgress, dungeonCompleted} = req.body;
+
+    try{
+
+        const updatedDungeon = await dungeonService.updateDungeonDetails(dungeonId, dungeonName, color, dungeonDescription, dungeonCheckpoints, completionProgress, dungeonCompleted)
+        res.status(204).send('Dungeon has been completed');
+        
+
     }catch(err){
         if(err.statusCode === 404){
             res.status(404).send("Dungeon does not exist");
