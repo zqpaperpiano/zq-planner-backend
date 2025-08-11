@@ -11,11 +11,13 @@ exports.gettingGoogleLogins = async(req, res) => {
             "status": "The player has not set a status yet",
             "completedCalibration": false,
             'preferences': {
-                'cat1': {color: '#ca4a55', name: 'Clearing dungeons'},
-                'cat2': {color: '#ee694b', name: 'Running Errands'},
-                'cat3': {color: '#fdb814', name: 'Misc'},
-                'cat4': {color: "#30ad6e", name: 'Meetings'},
-                'cat5': {color: "#1d58a0", name: 'Social Activities'}
+                "categories": {
+                    'cat1': {color: '#ca4a55', name: 'Clearing dungeons'},
+                    'cat2': {color: '#ee694b', name: 'Running Errands'},
+                    'cat3': {color: '#fdb814', name: 'Misc'},
+                    'cat4': {color: "#30ad6e", name: 'Meetings'},
+                    'cat5': {color: "#1d58a0", name: 'Social Activities'}
+                }
             }
         }, uid);
 
@@ -43,11 +45,13 @@ exports.createNewUser = async (req, res) => {
             "status": "The player has not set a status yet",
             "completedCalibration": false,
             'preferences': {
-                'cat1': {color: '#ca4a55', name: 'Clearing dungeons'},
-                'cat2': {color: '#ee694b', name: 'Running Errands'},
-                'cat3': {color: '#fdb814', name: 'Misc'},
-                'cat4': {color: "#30ad6e", name: 'Meetings'},
-                'cat5': {color: "#1d58a0", name: 'Social Activities'}
+                'categories': {
+                    'cat1': {color: '#ca4a55', name: 'Clearing dungeons'},
+                    'cat2': {color: '#ee694b', name: 'Running Errands'},
+                    'cat3': {color: '#fdb814', name: 'Misc'},
+                    'cat4': {color: "#30ad6e", name: 'Meetings'},
+                    'cat5': {color: "#1d58a0", name: 'Social Activities'}
+                }
             }
         }, uid);
         res.status(201).json(newUser);
@@ -173,7 +177,7 @@ exports.userLogOut = async(req, res) => {
         res.status(200).send('Cookie cleared');
     }catch(err){
         res.status(500).send('An error has occured. Cookies was not able to be');
-    }
+    } 
 }
 
 

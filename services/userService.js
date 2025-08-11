@@ -31,6 +31,7 @@ exports.createUser = async (user, uid) => {
             throw err;
         }
         
+        console.log('received user: ', user);
         await db.collection("user").doc(uid).set(user);
 
         const savedUser = (await docRef.doc(uid).get()).data();

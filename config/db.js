@@ -4,6 +4,7 @@ require('dotenv').config(); // To load .env file
 
 // Initialize Firebase Admin SDK using environment variables
 if (process.env.NODE_ENV !== "test") {
+  //uncomment for dev
   const credentials = {
     type: process.env.FIREBASE_TYPE,
     project_id: process.env.FIREBASE_PROJECT_ID,
@@ -16,6 +17,8 @@ if (process.env.NODE_ENV !== "test") {
     auth_provider_x509_cert_url: process.env.FIREBASE_AUTH_PROVIDER_X509_CERT_URL,
     client_x509_cert_url: process.env.FIREBASE_CLIENT_X509_CERT_URL,
   };
+
+  //uncomment for prod
   // const serviceAccountBase64 = process.env.FIREBASE_SERVICE_ACCOUNT_JSON;
 
   // if(!serviceAccountBase64){
@@ -24,6 +27,7 @@ if (process.env.NODE_ENV !== "test") {
   // }
 
   try{
+    //uncomment for prod
     // const serviceAccountJson = Buffer.from(serviceAccountBase64, 'base64').toString('utf-8');
     // const serviceAccount = JSON.parse(serviceAccountJson);
     
@@ -32,6 +36,7 @@ if (process.env.NODE_ENV !== "test") {
     //   projectId: serviceAccount.project_id,
     // });
 
+    //uncomment for dev
     admin.initializeApp({
       credential: admin.credential.cert(credentials),
       projectId: process.env.FIREBASE_PROJECT_ID,

@@ -5,14 +5,19 @@ const dungeonRoutes = require('./routes/dungeonRoutes');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 
-// app.use(cors({
-//     origin: 'https://ziqing-s-planner.onrender.com',
-//     credentials: true
-// }));
+const allowedOrigins = [
+    'https://ziqing-s-planner.onrender.com',
+    'http://localhost:3000'
+]
+
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: allowedOrigins,
     credentials: true
-}))
+}));
+// app.use(cors({
+//     origin: 'http://localhost:3000',
+//     credentials: true
+// }))
 app.use(express.json());
 app.use(express.urlencoded({extended:true}))
 app.use(cookieParser());
